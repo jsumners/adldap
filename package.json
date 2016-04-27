@@ -1,6 +1,6 @@
 {
   "name": "adldap",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A light weight interface to Active Directory based on LDAPjs",
   "homepage": "https://github.com/jsumners/adldap",
   "main": "index.js",
