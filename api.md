@@ -55,8 +55,8 @@ supplied credentials. Username formats accepted:
 + Domain: an Active Directory style username, e.g. 'domain\user'
 
 **Kind**: instance method of <code>[Client](#Client)</code>  
-**Returns**: <code>Promise</code> - Resolves with a value of `true` on success, or rejects
-with an `Error`.  
+**Returns**: <code>Promise</code> - Resolves with a value of `true` on success, `false` on
+failure, and rejects with an `Error` if an unrecoverable error occurs.  
 
 | Param | Type | Description |
 | --- | --- | --- |
