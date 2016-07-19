@@ -6,7 +6,7 @@ const expect = require('chai').expect
 const log = require('pino')({level: 'fatal'})
 const Response = require('../lib/Response')(log)
 
-suite('Response', function ()  {
+suite('Response', function () {
   let emitter
   setup(function (done) {
     emitter = new events.EventEmitter()

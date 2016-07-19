@@ -1,0 +1,59 @@
+'use strict'
+/* eslint-env node, mocha */
+
+require('thunk-mocha')()
+const expect = require('chai').expect
+const log = require('pino')({level: 'fatal'})
+const Client = require('../lib/Client')(log)
+
+let server = require('./mockServer')
+
+suite('Client#authenticate(user, pass)', function () {
+  let client
+  suiteSetup(function (done) {
+    server(function (s) {
+      client = new Client({
+        searchUser: 'auth@domain.com',
+        searchUserPass: 'password',
+        ldapjs: {
+          url: 'ldap://localhost:1389',
+          searchBase: 'dc=domain,dc=com'
+        }
+      })
+      server = s
+      client.bind().then(done).catch(done)
+    })
+  })
+
+  suiteTeardown(function () {
+    try {
+      client.unbind()
+      server.server.close()
+    } catch (e) {}
+  })
+
+  test('validates simple username and password', function * () {
+    const result = yield client.authenticate('username', 'password')
+    expect(result).to.be.true
+  })
+
+  test('validates username@domain and password', function * () {
+    const result = yield client.authenticate('username@domain', 'password')
+    expect(result).to.be.true
+  })
+
+  test('validates domain\\username and password', function * () {
+    const result = yield client.authenticate('domain\\username', 'password')
+    expect(result).to.be.true
+  })
+
+  test('validates FQDN username and password', function * () {
+    const result = yield client.authenticate('CN=First Last Name,OU=Domain Users,DC=domain,DC=com', 'password')
+    expect(result).to.be.true
+  })
+
+  test('validates filter username and password', function * () {
+    const result = yield client.authenticate('(samaccountname=username)', 'password')
+    expect(result).to.be.true
+  })
+})

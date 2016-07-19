@@ -52,7 +52,7 @@ client.bind()
 + `ldapjs`
   + `url`: The URL to your Active Directory in LDAP format.
   + `searchBase`: Default search base to use for all searches unless overridden
-    by a method's options. (optional)
+    by a method's options.
   + `scope`: The default search scope to use for all searches unless overridden
     by a method's options. Can be 'base', 'one', or 'sub'. Defaults to 'base'.
     (optional)
