@@ -1,2 +1,3 @@
 'use strict'
-module.exports = require('./lib/Client')
+const path = require('path')
+module.exports = require(path.join(__dirname, 'lib', 'Client'))
