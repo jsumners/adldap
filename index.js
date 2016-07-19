@@ -1,2 +1,2 @@
-'use strict';
-module.exports = require('./lib/Client');
+'use strict'
+module.exports = require('./lib/Client')
