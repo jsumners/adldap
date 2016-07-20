@@ -53,6 +53,7 @@ supplied credentials. Username formats accepted:
 + Filter: an LDAP filter that resolves to the username
 + DN: the full LDAP DN for the user, e.g. `cn=juser,ou=users,dn=example,dn=com`.
 + Domain: an Active Directory style username, e.g. 'domain\user'
++ Principal: a user principal name, e.g. 'juser@domain'
 
 **Kind**: instance method of <code>[Client](#Client)</code>  
 **Returns**: <code>Promise</code> - Resolves with a value of `true` on success, `false` on
@@ -84,7 +85,7 @@ attributes option.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [username] | <code>string</code> | Either a simple name, e.g. 'juser', or an LDAP filter that should result in a single user. If it returns multiple users, only the first result will be returned. If omitted, a filter must be supplied in the `options`. Default: `(&(sAMAccountName=username)(objectClass=person))`. |
+| [username] | <code>string</code> | Either a simple name, e.g. 'juser', or an LDAP filter that should result in a single user. If it returns multiple users, only the first result will be returned. If omitted, a filter must be supplied in the `options`. Default: `(&(objectcategory=user)(sAMAccountName=username))`. |
 | [options] | <code>[SearchOptions](#SearchOptions)</code> | Options to be used for the search. |
 
 <a name="Client+search"></a>
@@ -173,8 +174,9 @@ A wrapper around ldapjs's search result events. This wrapper exposes events:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| url | <code>string</code> | The address of the LDAP (AD) server to connect to. |
-| searchBase | <code>string</code> | The base tree to search through. Default: `null`. |
+| url | <code>string</code> | The address of the LDAP (AD) server to connect to. This property is required if `socketPath` is not set. |
+| socketPath | <code>string</code> | A Unix socket path to connect to. |
+| searchBase | <code>string</code> | The base tree to search through. Can be overriden via options on certain methods. |
 | scope | <code>string</code> | The search scope to use. Can be 'base', 'one', or 'sub'. Default: 'base'. |
 | array | <code>attributes</code> | Default list of attributes to return from searches. Default: `['dn', 'cn', 'sn', 'givenName', 'mail', 'memberOf']` |
 
