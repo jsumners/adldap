@@ -19,6 +19,7 @@ const EventEmitter = require('events').EventEmitter
 const net = require('net')
 const tls = require('tls')
 const util = require('util')
+const uuid = require('uuid')
 const FakeDN = require('./FakeDN')
 const settings = require('./settings')
 const ldap = require('ldapjs')
@@ -27,8 +28,6 @@ const errors = require('ldapjs/lib/errors')
 const connectionHandler = require('./connectionHandler')
 
 let log = require('pino')({level: 'fatal'})
-
-let server
 
 // We have to re-implement the whole constructor because we can't modify
 // its internal connection listener. And we need to do that so that we can
@@ -220,21 +219,18 @@ Server.prototype._mount = function (op, name, argv) {
   return this
 }
 
-function initServer (cb) {
-  require('./authentication')(server, settings)
-  require('./search')(server, settings)
-
-  server.listen(1389, '127.0.0.1', function () {
-    console.log('server running: %s', server.url)
-    cb(server)
-  })
-}
-
 module.exports = function (cb) {
-  if (server) {
-    return cb(server)
-  }
+  let server
+  function initServer (cb) {
+    require('./authentication')(server, settings)
+    require('./search')(server, settings)
+    const socket = '/tmp/.adlap-' + uuid.v4()
 
+    server.listen(socket, function () {
+      log.trace('server running: %s', server.url)
+      cb(server, socket)
+    })
+  }
   server = new Server({
     strictDN: false,
     log: log

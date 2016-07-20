@@ -174,8 +174,9 @@ A wrapper around ldapjs's search result events. This wrapper exposes events:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| url | <code>string</code> | The address of the LDAP (AD) server to connect to. |
-| searchBase | <code>string</code> | The base tree to search through. Default: `null`. |
+| url | <code>string</code> | The address of the LDAP (AD) server to connect to. This property is required if `socketPath` is not set. |
+| socketPath | <code>string</code> | A Unix socket path to connect to. |
+| searchBase | <code>string</code> | The base tree to search through. Can be overriden via options on certain methods. |
 | scope | <code>string</code> | The search scope to use. Can be 'base', 'one', or 'sub'. Default: 'base'. |
 | array | <code>attributes</code> | Default list of attributes to return from searches. Default: `['dn', 'cn', 'sn', 'givenName', 'mail', 'memberOf']` |
 

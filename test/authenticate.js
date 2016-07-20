@@ -11,17 +11,20 @@ let server = require('./mockServer')
 suite('Client#authenticate(user, pass)', function () {
   let client
   suiteSetup(function (done) {
-    server(function (s) {
+    server(function (s, socket) {
       client = new Client({
         searchUser: 'auth@domain.com',
         searchUserPass: 'password',
         ldapjs: {
-          url: 'ldap://localhost:1389',
+          socketPath: socket,
           searchBase: 'dc=domain,dc=com'
         }
       })
       server = s
-      client.bind().then(done).catch(done)
+      client.bind().then(done).catch((err) => {
+        console.log('bind failed: %s', err.message)
+        done()
+      })
     })
   })
 
