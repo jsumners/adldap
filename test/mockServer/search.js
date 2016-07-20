@@ -43,12 +43,17 @@ module.exports = function search (server, settings) {
           users.push(domainUsers[key].value)
         }
       }
-      let result
-      for (let user of users) {
-        if (user.attributes.sAMAccountName === username) {
-          result = user
-          break
-        }
+      const result = users.find((u) => u.attributes.sAMAccountName === username)
+      // this hack is in so that we can test adldap.userInGroup()
+      // without it, res.send() is turning each memberOf value into `[object Object]`
+      if (result.attributes.memberOf && Array.isArray(result.attributes.memberOf)) {
+        const strings = result.attributes.memberOf.map((g) => {
+          if (g.attributes && g.attributes.distinguishedName) {
+            return g.attributes.distinguishedName
+          }
+          return g
+        })
+        result.attributes.memberOf = strings
       }
       return result
     }
