@@ -21,10 +21,11 @@
   },
   "bugs": "https://github.com/jsumners/adldap/issues",
   "dependencies": {
+    "bluebird": "^3.4.1",
+    "bluebird-co": "^2.1.2",
     "joi": "^8.0.5",
     "ldapjs": "^1.0.0",
-    "pino": "^2.2.0",
-    "then-yield": "0.0.1"
+    "pino": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
