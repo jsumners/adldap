@@ -81,7 +81,8 @@ given username.
 
 **Kind**: instance method of <code>[Client](#Client)</code>  
 **Returns**: <code>Promise.&lt;object&gt;</code> - A user object with the properties specified in the
-attributes option.  
+attributes option. The user returned is the first entry from a generic
+search result set.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -94,7 +95,7 @@ attributes option.
 Perform a generic LDAP query against the directory.
 
 **Kind**: instance method of <code>[Client](#Client)</code>  
-**Returns**: <code>Promise</code> - Resolves to a [Response](#Response) on success, rejects with
+**Returns**: <code>Promise</code> - Resolves to a array of results on success, rejects with
 an `Error` on failure.  
 
 | Param | Type | Description |

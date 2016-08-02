@@ -40,13 +40,11 @@ suite('Client#search(base, options, controls)', function () {
   test('finds a user from default search base', function (done) {
     const options = {filter: '(sAMAccountName=username1)'}
     client.search(options)
-      .then((response) => {
-        expect(response).to.be.an.instanceof(Response)
-        response.on('complete', () => {
-          expect(response.entries.length).to.equal(1)
-          expect(response.entries[0].givenName).to.equal('First')
-          done()
-        })
+      .then((results) => {
+        expect(results).to.be.an.instanceof(Array)
+        expect(results.length).to.equal(1)
+        expect(results[0].givenName).to.equal('First')
+        done()
       })
       .catch(done)
   })
@@ -54,13 +52,11 @@ suite('Client#search(base, options, controls)', function () {
   test('finds a user from alternate search base', function (done) {
     const options = {filter: '(sAMAccountName=username1)'}
     client.search('OU=Domain Users,DC=domain,DC=com', options)
-      .then((response) => {
-        expect(response).to.be.an.instanceof(Response)
-        response.on('complete', () => {
-          expect(response.entries.length).to.equal(1)
-          expect(response.entries[0].givenName).to.equal('First')
-          done()
-        })
+      .then((results) => {
+        expect(results).to.be.an.instanceof(Array)
+        expect(results.length).to.equal(1)
+        expect(results[0].givenName).to.equal('First')
+        done()
       })
       .catch(done)
   })
@@ -68,13 +64,11 @@ suite('Client#search(base, options, controls)', function () {
   test('finds a user with alternate attributes', function (done) {
     const options = {filter: '(sAMAccountName=username1)', attributes: ['sAMAccountName']}
     client.search(options)
-      .then((response) => {
-        expect(response).to.be.an.instanceof(Response)
-        response.on('complete', () => {
-          expect(response.entries.length).to.equal(1)
-          expect(response.entries[0].sAMAccountName).to.equal('username1')
-          done()
-        })
+      .then((results) => {
+        expect(results).to.be.an.instanceof(Array)
+        expect(results.length).to.equal(1)
+        expect(results[0].sAMAccountName).to.equal('username1')
+        done()
       })
       .catch(done)
   })
