@@ -1,3 +1,8 @@
+### 2.0.0
++ Breaking change: alters the `search` method to handle the `Response` events
+  internally. The result of the `search` method is now a `Promise` that either
+  resolves to an array of search results or rejects with an `Error`.
+
 ### 1.0.1
 + In some instances the `authenticate` method would not return. This seems to
   be because Bluebird's `coroutine` doesn't support `yield *`; though, I'm not
