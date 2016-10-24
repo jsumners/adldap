@@ -5,7 +5,6 @@ require('thunk-mocha')()
 const expect = require('chai').expect
 const log = require('pino')({level: 'fatal'})
 const Client = require('../lib/Client')(log)
-const Response = require('../lib/Response')(log)
 
 let server = require('./mockServer')
 

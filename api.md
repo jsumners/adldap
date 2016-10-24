@@ -3,8 +3,6 @@
 <dl>
 <dt><a href="#Client">Client</a></dt>
 <dd></dd>
-<dt><a href="#Response">Response</a></dt>
-<dd></dd>
 </dl>
 
 ## Typedefs
@@ -125,34 +123,6 @@ user's membership, rejects with an `Error` on failure.
 | --- | --- | --- |
 | username | <code>string</code> | A username as described in [findUser](#Client+findUser). |
 | groupName | <code>string</code> | The name of the group to verify. Can be a partial match. |
-
-<a name="Response"></a>
-
-## Response
-**Kind**: global class  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| entries | <code>array</code> | The list of search results. |
-| referrals | <code>array</code> | A list of referral URLs returned by the server. |
-
-<a name="new_Response_new"></a>
-
-### new Response(res)
-A wrapper around ldapjs's search result events. This wrapper exposes events:
-
-+ `tcperror`: maps to ldapjs's `error` event for search results.
-+ `ldaperror`: emitted when the ldapjs `end` event has fired and the
-   result status is anything other than `0`.
-+ `complete`: emitted when all search entries have been returned and the
-   ldapjs `end` event has fired. At this point you can retrieve the
-   `entries` and/or `referrals` from your instance of {@code Response}.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| res | <code>object</code> | An ldapjs search result event emitter. |
 
 <a name="SearchOptions"></a>
 
