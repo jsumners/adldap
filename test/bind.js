@@ -3,7 +3,7 @@
 
 const expect = require('chai').expect
 const log = require('pino')({level: 'fatal'})
-const clientFactory = require('../lib/Client')(log)
+const clientFactory = require('../lib/client')(log)
 
 const options = {
   searchUser: 'auth@domain.com',
