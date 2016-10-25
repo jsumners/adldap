@@ -3,7 +3,7 @@
 
 const expect = require('chai').expect
 const log = require('pino')({level: 'fatal'})
-const Client = require('../lib/Client')(log)
+const clientFactory = require('../lib/Client')(log)
 
 const options = {
   searchUser: 'auth@domain.com',
@@ -13,13 +13,13 @@ const options = {
   }
 }
 
-suite('Client#bind()', function () {
+suite('adldap#bind()', function () {
   test('succeeds with valid credentials', function (done) {
     const server = require('./mockServer')
     server(function (s, socket) {
       const localOptions = Object.assign({}, options)
       localOptions.ldapjs.socketPath = socket
-      const client = new Client(localOptions)
+      const client = clientFactory(localOptions)
       client.bind().then((result) => {
         expect(result).to.be.undefined
         client.unbind()
@@ -34,7 +34,7 @@ suite('Client#bind()', function () {
     server(function (s, socket) {
       const localOptions = Object.assign(options, {searchUser: 'isbad'})
       localOptions.ldapjs.socketPath = socket
-      const client = new Client(localOptions)
+      const client = clientFactory(localOptions)
       client.bind()
         .catch((result) => {
           expect(result).to.be.instanceof(Error)

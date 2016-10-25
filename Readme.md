@@ -24,8 +24,8 @@ requests are always welcome.
 ## Example
 
 ```javascript
-const Client = require('adlap')();
-const client = new Client({
+const adldapFactory = require('adlap')();
+const client = adldapFactory({
   searchUser: 'dn=Generic Searcher,ou=accounts,dn=example,dn=com',
   searchUserPass: 'supersecret',
   ldapjs: {

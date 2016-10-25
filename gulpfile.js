@@ -32,16 +32,10 @@ gulp.task('test', ['pre-test'], function testTask () {
 })
 
 gulp.task('docs', function gendocs () {
-  return gulp
-    .src([
-      'lib/*.js'
-    ])
-    .pipe($.concat('api.md'))
-    .pipe($.jsdocToMarkdown())
-    .on('error', function docError (err) {
-      console.error('jsdoc2md failed:', err.message)
-    })
-    .pipe(gulp.dest('.'))
+  const fs = require('fs')
+  const jsdoc2md = require('jsdoc-to-markdown')
+  const output = jsdoc2md.renderSync({files: 'lib/*.js'})
+  fs.writeFileSync('api.md', output)
 })
 
 gulp.task('default', ['lint', 'test', 'docs'])

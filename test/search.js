@@ -4,15 +4,15 @@
 require('thunk-mocha')()
 const expect = require('chai').expect
 const log = require('pino')({level: 'fatal'})
-const Client = require('../lib/Client')(log)
+const clientFactory = require('../lib/Client')(log)
 
 let server = require('./mockServer')
 
-suite('Client#search(base, options, controls)', function () {
+suite('adldap#search(base, options, controls)', function () {
   let client
   suiteSetup(function (done) {
     server(function (s, socket) {
-      client = new Client({
+      client = clientFactory({
         searchUser: 'auth@domain.com',
         searchUserPass: 'password',
         ldapjs: {
