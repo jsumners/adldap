@@ -43,6 +43,15 @@ test('validates simple username and password', (t) => {
     .catch((err) => t.threw(err))
 })
 
+test('returns false for invalid credentials', (t) => {
+  t.plan(1)
+  client.authenticate('username', 'invalid')
+    .then((result) => {
+      t.is(result, false)
+    })
+    .catch((err) => t.threw(err))
+})
+
 test('validates username@domain and password', (t) => {
   t.plan(1)
   client.authenticate('username@domain', 'password')

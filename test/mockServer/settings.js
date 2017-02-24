@@ -7,6 +7,7 @@ module.exports = {
       domainUsername: 'DOMAIN\\username',
       dn: 'CN=First Last Name,OU=Domain Users,DC=domain,DC=com'
     },
-    password: 'password'
+    password: 'password',
+    invalidPassword: 'invalid'
   }
 }
