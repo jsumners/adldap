@@ -5,7 +5,9 @@
   "homepage": "https://github.com/jsumners/adldap",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "tap --no-cov 'test/**/*.test.js'",
+    "doc": "jsdoc2md 'lib/*.js' > api.md",
+    "precommit-doc": "npm run doc && git add api.md"
   },
   "keywords": [
     "ldap",
@@ -28,22 +30,11 @@
     "ldapjs": "^1.0.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-eslint": "^3.0.1",
-    "gulp-istanbul": "^1.1.1",
-    "gulp-jsdoc": "^0.1.5",
-    "gulp-load-plugins": "^1.3.0",
-    "gulp-mocha": "^3.0.1",
-    "gulp-standard": "^8.0.2",
-    "istanbul": "^0.4.5",
-    "jsdoc": "^3.4.1",
-    "jsdoc-to-markdown": "^2.0.1",
-    "mocha": "^3.0.2",
+    "jsdoc-to-markdown": "^3.0.0",
     "pino": "^2.13.0",
     "pre-commit": "^1.1.3",
-    "thunk-mocha": "^1.0.6",
+    "standard": "^8.6.0",
+    "tap": "^10.2.1",
     "uuid": "^2.0.2"
   }
 }
