@@ -1,3 +1,10 @@
+### 3.0.0
++ Update dependencies
++ Refactor code into object literals
++ Breaking change: switch logger to `abstract-logging`
++ Switch testing framework to `node-tap` and remove `gulp` ecosystem
++ Fix `#authenticate` not returning `false` for invalid credentials errors
+
 ### 2.0.0
 + Breaking change: alters the `search` method to handle the `Response` events
   internally. The result of the `search` method is now a `Promise` that either
