@@ -1,10 +1,26 @@
-## Classes
+## Modules
 
 <dl>
-<dt><a href="#Client">Client</a></dt>
+<dt><a href="#module_adlap">adlap</a></dt>
 <dd></dd>
-<dt><a href="#Response">Response</a></dt>
-<dd></dd>
+</dl>
+
+## Constants
+
+<dl>
+<dt><a href="#adldapClient">adldapClient</a></dt>
+<dd><p>A simple <code>Promise</code> based interface to Active Directory backed by the <code>ldapjs</code>
+library.</p>
+</dd>
+</dl>
+
+## Functions
+
+<dl>
+<dt><a href="#init">init([$log])</a> ⇒ <code>clientFactory</code></dt>
+<dd><p>Initialize the module with a logger and return a client factory function.
+If no logger instance is provided, a noop logger will be used.</p>
+</dd>
 </dl>
 
 ## Typedefs
@@ -18,34 +34,28 @@
 <dd></dd>
 </dl>
 
-<a name="Client"></a>
+<a name="module_adlap"></a>
 
-## Client
-**Kind**: global class  
+## adlap
+<a name="adldapClient"></a>
 
-* [Client](#Client)
-    * [new Client(config)](#new_Client_new)
-    * [.authenticate(username, password)](#Client+authenticate) ⇒ <code>Promise</code>
-    * [.bind()](#Client+bind) ⇒ <code>Promise</code>
-    * [.findUser([username], [options])](#Client+findUser) ⇒ <code>Promise.&lt;object&gt;</code>
-    * [.search([base], [options], [controls])](#Client+search) ⇒ <code>Promise</code>
-    * [.unbind()](#Client+unbind) ⇒ <code>Promise</code>
-    * [.userInGroup(username, groupName)](#Client+userInGroup) ⇒ <code>Promise.&lt;boolean&gt;</code>
-
-<a name="new_Client_new"></a>
-
-### new Client(config)
+## adldapClient
 A simple `Promise` based interface to Active Directory backed by the `ldapjs`
 library.
 
+**Kind**: global constant  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| config | <code>[ClientConfig](#ClientConfig)</code> | Required configuration object to configure the client. |
+* [adldapClient](#adldapClient)
+    * [.authenticate(username, password)](#adldapClient.authenticate) ⇒ <code>Promise</code>
+    * [.bind()](#adldapClient.bind) ⇒ <code>Promise</code>
+    * [.findUser([username], [options])](#adldapClient.findUser) ⇒ <code>Promise</code>
+    * [.search([base], [options], [controls])](#adldapClient.search) ⇒ <code>Promise</code>
+    * [.unbind()](#adldapClient.unbind) ⇒ <code>Promise</code>
+    * [.userInGroup(username, groupName)](#adldapClient.userInGroup) ⇒ <code>Promise</code>
 
-<a name="Client+authenticate"></a>
+<a name="adldapClient.authenticate"></a>
 
-### client.authenticate(username, password) ⇒ <code>Promise</code>
+### adldapClient.authenticate(username, password) ⇒ <code>Promise</code>
 Attempt to authenticate a given user by attempting to bind using the
 supplied credentials. Username formats accepted:
 
@@ -55,48 +65,49 @@ supplied credentials. Username formats accepted:
 + Domain: an Active Directory style username, e.g. 'domain\user'
 + Principal: a user principal name, e.g. 'juser@domain'
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
-**Returns**: <code>Promise</code> - Resolves with a value of `true` on success, `false` on
-failure, and rejects with an `Error` if an unrecoverable error occurs.  
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>boolean</code> On successful authentication `true`, otherwise `false`.  
+**Reject**: <code>Error</code> When an unrecoverable error occurs, e.g. connection failure.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | username | <code>string</code> | The username for the user to authenticate. |
 | password | <code>string</code> | The user's password. |
 
-<a name="Client+bind"></a>
+<a name="adldapClient.bind"></a>
 
-### client.bind() ⇒ <code>Promise</code>
+### adldapClient.bind() ⇒ <code>Promise</code>
 Bind to the directory using the search user's credentials. This method
 must be invoked prior to any other method.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
-**Returns**: <code>Promise</code> - Resolves with no value on success, rejects with an
-`Error` on failure.  
-<a name="Client+findUser"></a>
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>\*</code> No value is returned on success.  
+**Reject**: <code>Error</code> On bind failure an error is returned.  
+<a name="adldapClient.findUser"></a>
 
-### client.findUser([username], [options]) ⇒ <code>Promise.&lt;object&gt;</code>
+### adldapClient.findUser([username], [options]) ⇒ <code>Promise</code>
 Performs a search of the directory to find the user identified by the
 given username.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
-**Returns**: <code>Promise.&lt;object&gt;</code> - A user object with the properties specified in the
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>object</code> A user object with the properties specified in the
 attributes option. The user returned is the first entry from a generic
 search result set.  
+**Reject**: <code>Error</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | [username] | <code>string</code> | Either a simple name, e.g. 'juser', or an LDAP filter that should result in a single user. If it returns multiple users, only the first result will be returned. If omitted, a filter must be supplied in the `options`. Default: `(&(objectcategory=user)(sAMAccountName=username))`. |
 | [options] | <code>[SearchOptions](#SearchOptions)</code> | Options to be used for the search. |
 
-<a name="Client+search"></a>
+<a name="adldapClient.search"></a>
 
-### client.search([base], [options], [controls]) ⇒ <code>Promise</code>
+### adldapClient.search([base], [options], [controls]) ⇒ <code>Promise</code>
 Perform a generic LDAP query against the directory.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
-**Returns**: <code>Promise</code> - Resolves to a array of results on success, rejects with
-an `Error` on failure.  
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>Array</code> An array of search results.  
+**Reject**: <code>Error</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -104,55 +115,54 @@ an `Error` on failure.
 | [options] | <code>[SearchOptions](#SearchOptions)</code> | Options to use during the search. |
 | [controls] | <code>array</code> | A list of directory controls to use during the search. |
 
-<a name="Client+unbind"></a>
+<a name="adldapClient.unbind"></a>
 
-### client.unbind() ⇒ <code>Promise</code>
+### adldapClient.unbind() ⇒ <code>Promise</code>
 Close the connection to the directory.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
-**Returns**: <code>Promise</code> - Resolves with an empty value on success, rejects with
-an `Error` on failure.  
-<a name="Client+userInGroup"></a>
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>\*</code> No value is returned on success  
+**Reject**: <code>Error</code>  
+<a name="adldapClient.userInGroup"></a>
 
-### client.userInGroup(username, groupName) ⇒ <code>Promise.&lt;boolean&gt;</code>
+### adldapClient.userInGroup(username, groupName) ⇒ <code>Promise</code>
 Query the directory to determine if a user is a member of a specified group.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
-**Returns**: <code>Promise.&lt;boolean&gt;</code> - Resolves with a `true` or `false` based on the
-user's membership, rejects with an `Error` on failure.  
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>boolean</code> If the user is a member then `true`, otherwise `false`.  
+**Reject**: <code>Error</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| username | <code>string</code> | A username as described in [findUser](#Client+findUser). |
+| username | <code>string</code> | A username as described in [Client#findUser](Client#findUser). |
 | groupName | <code>string</code> | The name of the group to verify. Can be a partial match. |
 
-<a name="Response"></a>
+<a name="init"></a>
 
-## Response
-**Kind**: global class  
-**Properties**
+## init([$log]) ⇒ <code>clientFactory</code>
+Initialize the module with a logger and return a client factory function.
+If no logger instance is provided, a noop logger will be used.
 
-| Name | Type | Description |
+**Kind**: global function  
+
+| Param | Type | Description |
 | --- | --- | --- |
-| entries | <code>array</code> | The list of search results. |
-| referrals | <code>array</code> | A list of referral URLs returned by the server. |
+| [$log] | <code>object</code> | A logger that conforms to the Log4j interface. |
 
-<a name="new_Response_new"></a>
+<a name="init..clientFactory"></a>
 
-### new Response(res)
-A wrapper around ldapjs's search result events. This wrapper exposes events:
+### init~clientFactory(config) ⇒ <code>[adldapClient](#adldapClient)</code>
+Build an adldap instance.
 
-+ `tcperror`: maps to ldapjs's `error` event for search results.
-+ `ldaperror`: emitted when the ldapjs `end` event has fired and the
-   result status is anything other than `0`.
-+ `complete`: emitted when all search entries have been returned and the
-   ldapjs `end` event has fired. At this point you can retrieve the
-   `entries` and/or `referrals` from your instance of {@code Response}.
+**Kind**: inner method of <code>[init](#init)</code>  
+**Throws**:
+
+- <code>Error</code> When an invalid configuration object is supplied.
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| res | <code>object</code> | An ldapjs search result event emitter. |
+| config | <code>[ClientConfig](#ClientConfig)</code> | Required configuration object to configure the client. |
 
 <a name="SearchOptions"></a>
 
