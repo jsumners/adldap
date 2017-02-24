@@ -6,9 +6,15 @@
   "main": "index.js",
   "scripts": {
     "test": "tap --no-cov 'test/**/*.test.js'",
+    "lint": "standard",
     "doc": "jsdoc2md 'lib/*.js' > api.md",
     "precommit-doc": "npm run doc && git add api.md"
   },
+  "precommit": [
+    "lint",
+    "test",
+    "precommit-doc"
+  ],
   "keywords": [
     "ldap",
     "ad",

@@ -366,9 +366,9 @@ schema.getByRDN = function getByRDN (rdn) {
 // e.g. `(givenName=First)`
 schema.filter = function filter (query) {
   if (query.indexOf('*') !== -1) {
-    return schema.find(query.replace(/[\(\)]/g, ''))
+    return schema.find(query.replace(/[()]/g, ''))
   }
-  const parts = query.replace(/[\(\)]/g, '').replace('=', '~~').split('~~')
+  const parts = query.replace(/[()]/g, '').replace('=', '~~').split('~~')
 
   const results = []
   function loop (object, property, value) {
