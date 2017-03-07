@@ -1,3 +1,6 @@
+### 3.0.1
++ Fix for usernames tha start with `cn` or `dn` not being processed correctly
+
 ### 3.0.0
 + Update dependencies
 + Refactor code into object literals
