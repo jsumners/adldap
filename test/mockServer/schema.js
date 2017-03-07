@@ -272,6 +272,18 @@ schema.com.domain['domain users'] = {
     )
   },
 
+  'cname user': {
+    type: 'cn',
+    value: createUserObject(
+      'Cuser',
+      'Name',
+      'CN',
+      'cname12',
+      'Domain Users',
+      []
+    )
+  },
+
   'john smith': {
     type: 'cn',
     value: createUserObject(

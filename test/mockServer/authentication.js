@@ -28,6 +28,10 @@ module.exports = function authentication (server, settings) {
         return trueResponse(req, res, next)
       }
 
+      if (req.dn.equals(settings.authenticate.username.cname) && req.credentials === settings.authenticate.password) {
+        return trueResponse(req, res, next)
+      }
+
       if (req.dn.equals(settings.authenticate.username.dn) && req.credentials === settings.authenticate.password) {
         return trueResponse(req, res, next)
       }

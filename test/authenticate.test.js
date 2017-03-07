@@ -87,3 +87,12 @@ test('validates filter username and password', (t) => {
     })
     .catch((err) => t.threw(err))
 })
+
+test('validates usernames that start with cn', (t) => {
+  t.plan(1)
+  client.authenticate('cname12', 'password')
+    .then((result) => {
+      t.is(result, true)
+    })
+    .catch((err) => t.threw(err))
+})
