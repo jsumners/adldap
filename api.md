@@ -54,13 +54,13 @@ library.
 * [adldapClient](#adldapClient)
     * [.authenticate(username, password)](#adldapClient.authenticate) ⇒ <code>Promise</code>
     * [.bind()](#adldapClient.bind) ⇒ <code>Promise</code>
-    * [.findUser([username], [options])](#adldapClient.findUser) ⇒ <code>Promise</code>
-    * [.search([base], [options], [controls])](#adldapClient.search) ⇒ <code>Promise</code>
     * [.unbind()](#adldapClient.unbind) ⇒ <code>Promise</code>
-    * [.userInGroup(username, groupName)](#adldapClient.userInGroup) ⇒ <code>Promise</code>
+    * [.findUser([username], [options])](#adldapClient.findUser) ⇒ <code>Promise</code>
     * [.replace(dn, change)](#adldapClient.replace) ⇒ <code>Promise</code>
     * [.replaceAttribute(dn, attribute, value)](#adldapClient.replaceAttribute) ⇒ <code>Promise</code>
     * [.incrementAttribute(cn, attribute)](#adldapClient.incrementAttribute) ⇒ <code>Promise</code>
+    * [.search([base], [options], [controls])](#adldapClient.search) ⇒ <code>Promise</code>
+    * [.userInGroup(username, groupName)](#adldapClient.userInGroup) ⇒ <code>Promise</code>
 
 <a name="adldapClient.authenticate"></a>
 
@@ -92,6 +92,14 @@ must be invoked prior to any other method.
 **Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
 **Resolve**: <code>\*</code> No value is returned on success.  
 **Reject**: <code>Error</code> On bind failure an error is returned.  
+<a name="adldapClient.unbind"></a>
+
+### adldapClient.unbind() ⇒ <code>Promise</code>
+Close the connection to the directory.
+
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>\*</code> No value is returned on success  
+**Reject**: <code>Error</code>  
 <a name="adldapClient.findUser"></a>
 
 ### adldapClient.findUser([username], [options]) ⇒ <code>Promise</code>
@@ -108,43 +116,6 @@ search result set.
 | --- | --- | --- |
 | [username] | <code>string</code> | Either a simple name, e.g. 'juser', or an LDAP filter that should result in a single user. If it returns multiple users, only the first result will be returned. If omitted, a filter must be supplied in the `options`. Default: `(&(objectcategory=user)(sAMAccountName=username))`. |
 | [options] | <code>[SearchOptions](#SearchOptions)</code> | Options to be used for the search. |
-
-<a name="adldapClient.search"></a>
-
-### adldapClient.search([base], [options], [controls]) ⇒ <code>Promise</code>
-Perform a generic LDAP query against the directory.
-
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
-**Resolve**: <code>Array</code> An array of search results.  
-**Reject**: <code>Error</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [base] | <code>string</code> | The directory tree to use as the search root. Default: [LdapjsOptions#searchBase](LdapjsOptions#searchBase). |
-| [options] | <code>[SearchOptions](#SearchOptions)</code> | Options to use during the search. |
-| [controls] | <code>array</code> | A list of directory controls to use during the search. |
-
-<a name="adldapClient.unbind"></a>
-
-### adldapClient.unbind() ⇒ <code>Promise</code>
-Close the connection to the directory.
-
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
-**Resolve**: <code>\*</code> No value is returned on success  
-**Reject**: <code>Error</code>  
-<a name="adldapClient.userInGroup"></a>
-
-### adldapClient.userInGroup(username, groupName) ⇒ <code>Promise</code>
-Query the directory to determine if a user is a member of a specified group.
-
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
-**Resolve**: <code>boolean</code> If the user is a member then `true`, otherwise `false`.  
-**Reject**: <code>Error</code>  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| username | <code>string</code> | A username as described in [Client#findUser](Client#findUser). |
-| groupName | <code>string</code> | The name of the group to verify. Can be a partial match. |
 
 <a name="adldapClient.replace"></a>
 
@@ -197,6 +168,35 @@ Update an attribute that is a number by incrementing its value by one.
 ```js
 client.incrementAttribute('foobar', 'myCounter')
 ```
+<a name="adldapClient.search"></a>
+
+### adldapClient.search([base], [options], [controls]) ⇒ <code>Promise</code>
+Perform a generic LDAP query against the directory.
+
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>Array</code> An array of search results.  
+**Reject**: <code>Error</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [base] | <code>string</code> | The directory tree to use as the search root. Default: [LdapjsOptions#searchBase](LdapjsOptions#searchBase). |
+| [options] | <code>[SearchOptions](#SearchOptions)</code> | Options to use during the search. |
+| [controls] | <code>array</code> | A list of directory controls to use during the search. |
+
+<a name="adldapClient.userInGroup"></a>
+
+### adldapClient.userInGroup(username, groupName) ⇒ <code>Promise</code>
+Query the directory to determine if a user is a member of a specified group.
+
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>boolean</code> If the user is a member then `true`, otherwise `false`.  
+**Reject**: <code>Error</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| username | <code>string</code> | A username as described in [Client#findUser](Client#findUser). |
+| groupName | <code>string</code> | The name of the group to verify. Can be a partial match. |
+
 <a name="init"></a>
 
 ## init([$log]) ⇒ <code>clientFactory</code>
