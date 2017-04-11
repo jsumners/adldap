@@ -10,6 +10,7 @@ What can you do with `adldap`?
 + Find users
 + Authenticate arbitrary users
 + Determine if a user is a member of a specific group
++ Update specific attribute values
 
 This library was written because `activedirectory2` pulls back too much data
 when retreiving groups. I merely need the list of names; `activedirectory2`
@@ -24,14 +25,16 @@ requests are always welcome.
 ## Example
 
 ```javascript
-const adldapFactory = require('adlap')();
+const adldapFactory = require('adlap')()
 const client = adldapFactory({
   searchUser: 'dn=Generic Searcher,ou=accounts,dn=example,dn=com',
   searchUserPass: 'supersecret',
   ldapjs: {
-    url: 'ldaps://ad.example.com'
+    url: 'ldaps://ad.example.com',
+    searchBase: 'dn=example,dn=com',
+    scope: 'sub'
   }
-});
+})
 
 // You must bind before you can do anything else.
 client.bind()
@@ -39,10 +42,36 @@ client.bind()
     client.findUser('someUser')
       .then((user) => console.log(user.memberOf))
       .catch((err) => console.error(err))
-      .then(() => client.unbind());
+      .then(() => client.unbind())
   })
-  .catch((err) => console.error(err));
+  .catch((err) => console.error(err))
 ```
+
+You could also "flatten" the code via [Bluebird][bb] and [bluebird-co][bbco]:
+
+```js
+const Promise = require('bluebird')
+require('bluebird-co')
+
+function * doItGenerator () {
+  try {
+    yield client.bind()
+
+    const user = yield client.findUser('someUser')
+    console.log(user.memberOf)
+
+    yield client.unbind()
+  } catch (e) {
+    console.error(e.message)
+  }
+}
+
+const doIt = Promise.coroutine(doItGenerator)
+doIt()
+```
+
+[bb]: http://bluebirdjs.com/
+[bbco]: https://www.npmjs.com/package/bluebird-co
 
 ## Config
 
@@ -71,6 +100,9 @@ The full documentation is included in the [api.md](api.md) document.
 + `search(base, options, controls)`
 + `unbind()`
 + `userInGroup(username, groupName)`
++ `replace(dn, change)`
++ `replaceAttribute(cn, attribute, value)`
++ `incrementAttribute(cn, attribute)`
 
 ## License
 
