@@ -1,3 +1,7 @@
+### 3.1.0
+From this release forward, release notes will be available at
+[https://github.com/jsumners/adldap/releases](https://github.com/jsumners/adldap/releases)
+
 ### 3.0.1
 + Fix for usernames tha start with `cn` or `dn` not being processed correctly
 
