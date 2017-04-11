@@ -25,7 +25,7 @@ requests are always welcome.
 ## Example
 
 ```javascript
-const adldapFactory = require('adlap')()
+const adldapFactory = require('adldap')()
 const client = adldapFactory({
   searchUser: 'dn=Generic Searcher,ou=accounts,dn=example,dn=com',
   searchUserPass: 'supersecret',
