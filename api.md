@@ -44,6 +44,12 @@ A simple `Promise` based interface to Active Directory backed by the `ldapjs`
 library.
 
 **Kind**: global constant  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| Change | <code>function</code> | Method from the `ldapjs` library to create change objects for use with [adldapClient#replace](adldapClient#replace). See the `ldapjs` client API documentation for information on this function. |
+
 
 * [adldapClient](#adldapClient)
     * [.authenticate(username, password)](#adldapClient.authenticate) ⇒ <code>Promise</code>
@@ -52,6 +58,9 @@ library.
     * [.search([base], [options], [controls])](#adldapClient.search) ⇒ <code>Promise</code>
     * [.unbind()](#adldapClient.unbind) ⇒ <code>Promise</code>
     * [.userInGroup(username, groupName)](#adldapClient.userInGroup) ⇒ <code>Promise</code>
+    * [.replace(dn, change)](#adldapClient.replace) ⇒ <code>Promise</code>
+    * [.replaceAttribute(dn, attribute, value)](#adldapClient.replaceAttribute) ⇒ <code>Promise</code>
+    * [.incrementAttribute(cn, attribute)](#adldapClient.incrementAttribute) ⇒ <code>Promise</code>
 
 <a name="adldapClient.authenticate"></a>
 
@@ -137,6 +146,57 @@ Query the directory to determine if a user is a member of a specified group.
 | username | <code>string</code> | A username as described in [Client#findUser](Client#findUser). |
 | groupName | <code>string</code> | The name of the group to verify. Can be a partial match. |
 
+<a name="adldapClient.replace"></a>
+
+### adldapClient.replace(dn, change) ⇒ <code>Promise</code>
+A wrapper around the `ldapjs` library's `modify` method.
+
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>undefined</code> Does not return anything on success.  
+**Reject**: <code>Error</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dn | <code>string</code> | The full path to the object to modify. |
+| change | <code>object</code> | An instance of `Change` from the `ldapjs` library describing the change to be made. The `Change` method is available via the `Change` property on the client. |
+
+<a name="adldapClient.replaceAttribute"></a>
+
+### adldapClient.replaceAttribute(dn, attribute, value) ⇒ <code>Promise</code>
+Update an attribute at a specified path with a new value.
+
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>undefined</code> No value is returned on success.  
+**Reject**: <code>Error</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dn | <code>string</code> | The full path to the object that has the atribute to be modified. |
+| attribute | <code>string</code> | The name of the attribute to change. |
+| value | <code>\*</code> | Any valid LDAP attribute value, e.g. a string or an array of strings. |
+
+**Example**  
+```js
+client.replaceAttribute('foobar', 'coolAttr', 'hello world')
+```
+<a name="adldapClient.incrementAttribute"></a>
+
+### adldapClient.incrementAttribute(cn, attribute) ⇒ <code>Promise</code>
+Update an attribute that is a number by incrementing its value by one.
+
+**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Resolve**: <code>undefined</code> Does not return anything on success.  
+**Reject**: <code>Error</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| cn | <code>string</code> | The `CN` value for the object to modify. |
+| attribute | <code>string</code> | The name of the attribute to increment. |
+
+**Example**  
+```js
+client.incrementAttribute('foobar', 'myCounter')
+```
 <a name="init"></a>
 
 ## init([$log]) ⇒ <code>clientFactory</code>
