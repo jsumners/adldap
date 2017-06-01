@@ -250,6 +250,7 @@ Build an adldap instance.
 | searchBase | <code>string</code> | The base tree to search through. Can be overriden via options on certain methods. |
 | scope | <code>string</code> | The search scope to use. Can be 'base', 'one', or 'sub'. Default: 'base'. |
 | array | <code>attributes</code> | Default list of attributes to return from searches. Default: `['dn', 'cn', 'sn', 'givenName', 'mail', 'memberOf']` |
+| tlsOptions | <code>object</code> | Standard Node.js TLS options to pass to ldapjs. |
 
 <a name="ClientConfig"></a>
 
