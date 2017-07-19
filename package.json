@@ -33,7 +33,7 @@
     "bluebird": "^3.5.0",
     "bluebird-co": "^2.1.2",
     "joi": "^10.5.2",
-    "ldapjs": "^1.0.0"
+    "ldapjs": "^1.0.1"
   },
   "devDependencies": {
     "jsdoc-to-markdown": "^3.0.0",

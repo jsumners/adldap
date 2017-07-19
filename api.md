@@ -74,7 +74,7 @@ supplied credentials. Username formats accepted:
 + Domain: an Active Directory style username, e.g. 'domain\user'
 + Principal: a user principal name, e.g. 'juser@domain'
 
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Kind**: static method of [<code>adldapClient</code>](#adldapClient)  
 **Resolve**: <code>boolean</code> On successful authentication `true`, otherwise `false`.  
 **Reject**: <code>Error</code> When an unrecoverable error occurs, e.g. connection failure.  
 
@@ -89,7 +89,7 @@ supplied credentials. Username formats accepted:
 Bind to the directory using the search user's credentials. This method
 must be invoked prior to any other method.
 
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Kind**: static method of [<code>adldapClient</code>](#adldapClient)  
 **Resolve**: <code>\*</code> No value is returned on success.  
 **Reject**: <code>Error</code> On bind failure an error is returned.  
 <a name="adldapClient.unbind"></a>
@@ -97,7 +97,7 @@ must be invoked prior to any other method.
 ### adldapClient.unbind() ⇒ <code>Promise</code>
 Close the connection to the directory.
 
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Kind**: static method of [<code>adldapClient</code>](#adldapClient)  
 **Resolve**: <code>\*</code> No value is returned on success  
 **Reject**: <code>Error</code>  
 <a name="adldapClient.findUser"></a>
@@ -106,7 +106,7 @@ Close the connection to the directory.
 Performs a search of the directory to find the user identified by the
 given username.
 
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Kind**: static method of [<code>adldapClient</code>](#adldapClient)  
 **Resolve**: <code>object</code> A user object with the properties specified in the
 attributes option. The user returned is the first entry from a generic
 search result set.  
@@ -115,14 +115,14 @@ search result set.
 | Param | Type | Description |
 | --- | --- | --- |
 | [username] | <code>string</code> | Either a simple name, e.g. 'juser', or an LDAP filter that should result in a single user. If it returns multiple users, only the first result will be returned. If omitted, a filter must be supplied in the `options`. Default: `(&(objectcategory=user)(sAMAccountName=username))`. |
-| [options] | <code>[SearchOptions](#SearchOptions)</code> | Options to be used for the search. |
+| [options] | [<code>SearchOptions</code>](#SearchOptions) | Options to be used for the search. |
 
 <a name="adldapClient.replace"></a>
 
 ### adldapClient.replace(dn, change) ⇒ <code>Promise</code>
 A wrapper around the `ldapjs` library's `modify` method.
 
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Kind**: static method of [<code>adldapClient</code>](#adldapClient)  
 **Resolve**: <code>undefined</code> Does not return anything on success.  
 **Reject**: <code>Error</code>  
 
@@ -136,7 +136,7 @@ A wrapper around the `ldapjs` library's `modify` method.
 ### adldapClient.replaceAttribute(dn, attribute, value) ⇒ <code>Promise</code>
 Update an attribute at a specified path with a new value.
 
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Kind**: static method of [<code>adldapClient</code>](#adldapClient)  
 **Resolve**: <code>undefined</code> No value is returned on success.  
 **Reject**: <code>Error</code>  
 
@@ -155,7 +155,7 @@ client.replaceAttribute('foobar', 'coolAttr', 'hello world')
 ### adldapClient.incrementAttribute(cn, attribute) ⇒ <code>Promise</code>
 Update an attribute that is a number by incrementing its value by one.
 
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Kind**: static method of [<code>adldapClient</code>](#adldapClient)  
 **Resolve**: <code>undefined</code> Does not return anything on success.  
 **Reject**: <code>Error</code>  
 
@@ -173,14 +173,14 @@ client.incrementAttribute('foobar', 'myCounter')
 ### adldapClient.search([base], [options], [controls]) ⇒ <code>Promise</code>
 Perform a generic LDAP query against the directory.
 
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Kind**: static method of [<code>adldapClient</code>](#adldapClient)  
 **Resolve**: <code>Array</code> An array of search results.  
 **Reject**: <code>Error</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | [base] | <code>string</code> | The directory tree to use as the search root. Default: [LdapjsOptions#searchBase](LdapjsOptions#searchBase). |
-| [options] | <code>[SearchOptions](#SearchOptions)</code> | Options to use during the search. |
+| [options] | [<code>SearchOptions</code>](#SearchOptions) | Options to use during the search. |
 | [controls] | <code>array</code> | A list of directory controls to use during the search. |
 
 <a name="adldapClient.userInGroup"></a>
@@ -188,7 +188,7 @@ Perform a generic LDAP query against the directory.
 ### adldapClient.userInGroup(username, groupName) ⇒ <code>Promise</code>
 Query the directory to determine if a user is a member of a specified group.
 
-**Kind**: static method of <code>[adldapClient](#adldapClient)</code>  
+**Kind**: static method of [<code>adldapClient</code>](#adldapClient)  
 **Resolve**: <code>boolean</code> If the user is a member then `true`, otherwise `false`.  
 **Reject**: <code>Error</code>  
 
@@ -211,10 +211,10 @@ If no logger instance is provided, a noop logger will be used.
 
 <a name="init..clientFactory"></a>
 
-### init~clientFactory(config) ⇒ <code>[adldapClient](#adldapClient)</code>
+### init~clientFactory(config) ⇒ [<code>adldapClient</code>](#adldapClient)
 Build an adldap instance.
 
-**Kind**: inner method of <code>[init](#init)</code>  
+**Kind**: inner method of [<code>init</code>](#init)  
 **Throws**:
 
 - <code>Error</code> When an invalid configuration object is supplied.
@@ -222,7 +222,7 @@ Build an adldap instance.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| config | <code>[ClientConfig](#ClientConfig)</code> | Required configuration object to configure the client. |
+| config | [<code>ClientConfig</code>](#ClientConfig) | Required configuration object to configure the client. |
 
 <a name="SearchOptions"></a>
 
