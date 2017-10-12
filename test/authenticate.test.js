@@ -54,7 +54,7 @@ test('returns false for invalid credentials', (t) => {
 
 test('validates username@domain and password', (t) => {
   t.plan(1)
-  client.authenticate('username@domain', 'password')
+  client.authenticate('username@domain.com', 'password')
     .then((result) => {
       t.is(result, true)
     })
